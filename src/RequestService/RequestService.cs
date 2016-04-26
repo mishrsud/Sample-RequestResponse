@@ -17,14 +17,14 @@
 
         public bool Start(HostControl hostControl)
         {
-            _log.Info("Creating bus...");
+            _log.Info("Creating bus...");//creating bus is the same on both the sides 
 
             _busControl = Bus.Factory.CreateUsingRabbitMq(x =>
             {
                 IRabbitMqHost host = x.Host(new Uri(ConfigurationManager.AppSettings["RabbitMQHost"]), h =>
                 {
-                    h.Username("guest");
-                    h.Password("guest");
+                    h.Username(ConfigurationManager.AppSettings["RabitUser"]);
+                    h.Password(ConfigurationManager.AppSettings["RabitPw"]);
                 });
 
                 x.ReceiveEndpoint(host, ConfigurationManager.AppSettings["ServiceQueueName"],
